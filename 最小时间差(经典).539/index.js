@@ -115,7 +115,5 @@ let findMinDifference2 = (timePoints) => {
   return min;
 };
 
-let input = ["05:31","22:08","00:35"]; // 147 = 1:52 + 00:35
+let input = ["05:31","22:08","00:35"];
 let result = findMinDifference(input);
-
-console.log(result);

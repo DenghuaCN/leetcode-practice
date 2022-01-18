@@ -25,9 +25,10 @@
   理解题意： 这题与.409的区别是，无法改变字符串中字符的出现顺序，必须在字符串原顺序下构造
  */
 
+// 参考: https://segmentfault.com/a/1190000022816480
+
 /**
- * 暴力法(写过最垃圾的算法) > 8000ms : )
- *
+ * 中心枚举法 O(n^2)
  * @param {string} s
  * @return {string}
  */
@@ -38,27 +39,28 @@ let longestPalindrome = function(s) {
   let maxStrArr = []; // 子串中最长的字符串数组
   let maxStrLen = 0; // 字串中最长的字符串长度 默认为1(1 <= s.length <= 1000)
 
-  let LEN  = sArr.length;
-  let insideLen = Math.floor(LEN / 2);
-
-  // 构造一个以'#'分割奇数数组
+  // 构造一个以'#'分割数组
   sArr = sArr.map(item => (['#', item]))
   sArr[sArr.length - 1].push('#');
   sArr = sArr.flat(2);
 
-  LEN  = sArr.length;
-  insideLen = Math.floor(LEN / 2);
+  //
+  let LEN  = sArr.length;
+  let insideLen = Math.floor(LEN / 2);
 
+  console.log(LEN);
+  console.log(insideLen);
 
+  // 构造好'#a#b#c#'形式的字符串后，枚举每一个字符
   for (let i = 0; i < LEN; i++) {
+    for (let j = 0; j <= insideLen; j++) { // j为左右扩大的值，如j = 1，则在sArr中的判断范围为 [i - 1] ~ [i + 1]
+      if (sArr[i - j] !== sArr[i + j]) {
+        break
+      };
 
-    for (let j = 0; j <= insideLen; j++) {
+      let spliceLen = 1 + j * 2; // 当找到一个回文时，即可切割下来存储。切割需要的变量为，起始切割点(i - j)，切割长度(j * 2 + 1)
 
-      if (sArr[i - j] !== sArr[i + j]) break;
-
-      let spliceLen = 1 + j * 2;
-      if (spliceLen > maxStrLen) {
-
+      if (spliceLen > maxStrLen) { // 如果这次产生的回文大于上一次存储的，更新对应值
         maxStrArr = [...sArr].splice(i - j, spliceLen);
         maxStrLen = maxStrArr.length;
       }
@@ -77,15 +79,13 @@ let longestPalindrome = function(s) {
 
 
 
-// let input = "abb";
-// let input = "cbbd";
+// let input = "abb"; // # a # b # b #
+// let input = "cbbd"; // # c # b # b # d #
 // let input = "a";
 // let input = "ac";
-// let input = "aaaa";
-// let input = "zzzzz";
 // let input = "1123";
-// let input = "12321";
-let input = "32461212";
+let input = "12321";
+// let input = "461212"; // #4#6#1#2#1#2#
 
 let result = longestPalindrome(input);
 
