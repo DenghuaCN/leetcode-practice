@@ -1,5 +1,5 @@
 /**
-  给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 !至多! 为 k。
+  给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 *至多* 为 k。
 
   示例 1:
   输入: nums = [1,2,3,1], k = 3
@@ -25,11 +25,13 @@
 // https://leetcode-cn.com/problems/contains-duplicate-ii/solution/hua-jie-suan-fa-219-cun-zai-zhong-fu-yuan-su-ii-by/
 
 /**
+ * 滑动窗口(Set) 时间空间表现最优
+ *
  * @param {number[]} nums
  * @param {number} k
  * @return {boolean}
  */
-let containsNearbyDuplicate = function(nums, k) {
+let containsNearbyDuplicate2 = function(nums, k) {
   let mySet = new Set();
 
   for (let i = 0; i < nums.length; i++) {
@@ -39,14 +41,92 @@ let containsNearbyDuplicate = function(nums, k) {
 
     mySet.add(nums[i])
 
-    if (mySet.size > k) {
-      mySet.delete(nums[i - k]);
+    if (mySet.size > k) { // Set中始终维护 K 个值，当超过K个值时，把首个值删除。
+      mySet.delete(nums[i - k]); // Set.prototype.delete(value): 移除Set中与这个值相等的元素
     }
   }
 
   return false;
 };
 
-let result = containsNearbyDuplicate([1,2,1], 0);
+
+/**
+ * 滑动窗口(队列)  用时>3000ms
+ *
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+let containsNearbyDuplicate1 = (nums, k) => {
+  class Queue {
+    constructor() {
+      this.item = [];
+    }
+    enqueue(element) {
+      this.item.push(element);
+    }
+    dequeue(element) {
+      this.item.shift();
+    }
+    empty() {
+      this.item = [];
+    }
+    have(element) {
+      return this.item.includes(element);
+    }
+    size() {
+      return this.item.length;
+    }
+  }
+
+  let queue = new Queue();
+
+  for (let i = 0; i < nums.length; i++) {
+    console.log(queue);
+
+    if (queue.have(nums[i])) { // 如果将要enqueue的元素与队列内任一元素想等，则判定在 K 的范围内存在满足题意的两个索引。
+      return true;
+    }
+
+    queue.enqueue(nums[i]);
+
+    if (queue.size() > k) {
+      queue.dequeue();
+    }
+  }
+
+  return false;
+}
+
+/**
+ * 哈希表(空间占用表现不优)
+ *
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+let containsNearbyDuplicate = function(nums, k) {
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const element = nums[i];
+
+    // key: element value: i
+    if (map.has(element) && i - map.get(element) <= k) {
+      return true;
+    }
+
+    map.set(element, i);
+  }
+
+  return false;
+};
+
+
+// let input = [[1,2,3,1,2,3],2];
+let input = [[1,0,1,1], 1];
+// let input = [[99, 99]];
+
+let result = containsNearbyDuplicate(...input);
 
 console.log(result);
