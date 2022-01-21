@@ -4,37 +4,64 @@
  */
 
 /**
+ * 快慢指针1
  * @param {number[]} nums
  * @return {number}
  */
+let removeDuplicates2 = (nums) => {
+  if (!nums || nums.length === 0) {
+    return 0;
+  }
 
-let nums = [-1, -2, 0, 0, 0, 1, 2, 2, 3, 3, 3, 4, 4, 5, 6]; // 9
-let nums2 = [0, 0, 1, 2]; // 3
+  let left = 0;
+  let right = 0;
 
-let removeDuplicates = function(nums) {
-    if (!nums || nums.length === 0) {
-      return 0
+
+  for (let i = 0; i < nums.length; i++) {
+    right++;
+
+    if (nums[left] !== nums[right]) {
+      left++;
+      nums[left] = nums[right];
     }
+  }
 
-    let left = 0;
-    let right = 0;
+  let finallyArr = nums.slice(0, left);
 
-    for (let i = 0; i < nums.length; i++) {
-      right += 1;
+  return finallyArr.length;
+}
 
-      if (nums[left] === nums[right]) {
-        continue;
-      } else if (nums[left] !== nums[right]) {
-        left += 1;
-        nums[left] = nums[right]
-      }
+/**
+ * 快慢指针2
+ * @param {number[]} nums
+ * @return {number}
+ */
+ let removeDuplicates = (nums) => {
+  if (!nums || nums.length === 0) {
+    return 0;
+  }
 
+  let len = nums.length;
+  let left = 0;
+  let right = 0;
+
+  while (right < len) {
+    right++;
+
+    if (nums[left] !== nums[right]) {
+      left++;
+      nums[left] = nums[right];
     }
+  }
 
-    // console.log('left', left); // 最后Left指针会指向数组中最后一个不重复的元素，Left即为不重复元素集合的最后一个元素下标
-    return left;
-};
+  let finallyArr = nums.slice(0, left);
+  return finallyArr.length;
+}
 
-removeDuplicates(nums);
 
-/* 考点: 数组，双指针(快慢指针) */
+let input = [-1, -2, 0, 0, 0, 1, 2, 2, 3, 3, 3, 4, 4, 5, 6]; // 9
+// let input = [0, 0, 1, 2]; // 3
+
+
+let result = removeDuplicates(input);
+console.log(result);
