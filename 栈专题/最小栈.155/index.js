@@ -43,8 +43,8 @@
     push(element) {
       this.x_stack.push(element);
 
-      let minValue = Math.min(element, this.x_minStack[this.x_minStack.length - 1]);
-      this.x_minStack.push(minValue);
+      let minValue = Math.min(element, this.x_minStack[this.x_minStack.length - 1]); // 比较 x_minStack的栈顶 和 入栈的元素 大小
+      this.x_minStack.push(minValue); // 将之前的结果更新到x_minStack中
     }
 
     /**
