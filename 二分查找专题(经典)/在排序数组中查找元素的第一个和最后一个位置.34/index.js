@@ -49,7 +49,7 @@ let searchRange2 = function(nums, target) {
 };
 
 /**
- * 二分查找
+ * 特殊二分查找
  *
  * @param {number[]} nums
  * @param {number} target
@@ -69,7 +69,7 @@ let searchRange = function(nums, target) {
 
   // O(log n)  n:给定数组长度
 	while (L < R) { // 循环停止条件为: 左右指针交叉，不再通过M指针来寻找索引
-		M = Math.floor((L + R) / 2);
+		let M = Math.floor((L + R) / 2);
 
 		if (nums[M] < target) {
 			L = M + 1;
@@ -98,7 +98,55 @@ let searchRange = function(nums, target) {
   return [-1, -1];
 };
 
-let input = [[1], 0];
+let input = [[5,7,7,8,8,8,8,10,10,10], 8];
 let result = searchRange(...input);
-
 console.log(result);
+
+
+/**
+ * 更优的时间复杂度实现
+ *
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange3 = function(nums, target) {
+  // 朴实无华的二分查找
+  function findTargetIndex(nums, target) {
+    let left = 0, right = nums.length - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        if (nums[mid] === target) {
+            return mid;
+        } else if (nums[mid] > target) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return -1;
+  }
+
+  const index = findTargetIndex(nums, target);
+
+  if (index === -1) return [-1, -1];
+
+  let prevIndex = lastIndex = index;
+
+  console.log(prevIndex, lastIndex, index);
+
+  // 往左边走到尽头
+  while (nums[prevIndex] === nums[prevIndex - 1]) {
+    prevIndex--;
+  }
+
+  // 往右边走到尽头
+  while (nums[lastIndex] === nums[lastIndex + 1]) {
+    lastIndex++;
+  }
+
+  return [prevIndex, lastIndex];
+};
