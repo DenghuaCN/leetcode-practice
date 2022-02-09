@@ -42,40 +42,7 @@
  * @param {number} k
  * @return {number}
  */
-let countKDifference = function(nums, k) {
-  let results = [];
-
-  for (let i = 0; i < nums.length; i++) {
-    const element = nums[i];
-
-    for (let j = i + 1; j < nums.length; j++) {
-      const otherElement = nums[j];
-
-      if (Math.abs(otherElement - element) === k) {
-        results.push([element, otherElement]);
-      }
-    }
-  }
-
-  return results.length;
-};
-
-let input = [
-  [3,2,1,5,4],
-  2
-];
-let result = countKDifference(...input);
-
-
-
-/**
- * 暴力负优化(I can't believe that)
- *
- * @param {number[]} nums
- * @param {number} k
- * @return {number}
- */
- let countKDifference2 = function(nums, k) {
+let countKDifference2 = function(nums, k) {
   let results = [];
 
   nums = nums.sort((a, b) => {
@@ -85,9 +52,7 @@ let result = countKDifference(...input);
   for (let i = 0; i < nums.length; i++) {
     const element = nums[i];
 
-    let j = i + 1;
-
-    while (j < nums.length) {
+    for (let j = i + 1; j < nums.length; j++) {
       const otherElement = nums[j];
       const diff = Math.abs(otherElement - element);
 
@@ -96,10 +61,47 @@ let result = countKDifference(...input);
       } else if (diff > k) {
         break;
       }
-
-      j++;
     }
   }
 
   return results.length;
 };
+
+/**
+ * HashMap (绝了)
+ *
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+let countKDifference = function(nums, k) {
+  let count = 0;
+  let map = new Map();
+  const LEN = nums.length;
+
+  let i = 0;
+
+  while (i < LEN) {
+    const curElement = nums[i];
+
+    let left = (map.get(curElement - k) || 0); // 将当前遍历的值 与 K运算后，在Map中作为key来查找，查找到说明存在一个符合条件的数值对，Map中查找操作操作: O(1)
+    let right = (map.get(curElement + k) || 0); // 将当前遍历的值 与 K运算后，在Map中作为key来查找，查找到说明存在一个符合条件的数值对
+
+    count += left;
+    count += right;
+
+    map.set(curElement, (map.get(curElement) || 0) + 1); // 每次将当前遍历到的元素添加到Map中
+
+    i++;
+  }
+
+  return count;
+};
+
+let input = [
+  [3,2,1,5,4],
+  2
+];
+let result = countKDifference(...input);
+
+console.log(result);
