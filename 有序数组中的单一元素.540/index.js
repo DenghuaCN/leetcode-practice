@@ -19,6 +19,8 @@
  */
 
 /**
+ * 暴力
+ *
  * @param {number[]} nums
  * @return {number}
  */
