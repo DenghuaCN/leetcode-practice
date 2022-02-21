@@ -49,13 +49,11 @@ let lengthOfLongestSubstring2 = function(s) {
   }
 
 
-  let left = 0;
   let right = 0;
   while (right <= sArr.length - 1) {
 
     if (map.has(sArr[right])) {
       let repeatCharIndex = map.get(sArr[right]); // 拿到重复的字符在Map中的索引
-      left = repeatCharIndex + 1; // 初始化指针到索引 + 1的位置
       right = repeatCharIndex + 1; // 初始化指针到索引 + 1的位置
 
       longSubWords.push(getMapWords());
@@ -85,10 +83,48 @@ let lengthOfLongestSubstring2 = function(s) {
   return minCount;
 };
 
+/**
+ * 优化
+ *
+ * @param {string} s
+ * @return {number}
+ */
+let lengthOfLongestSubstring = function(s) {
+  let sArr = s.split('');
+  let max = Number.MIN_VALUE;
+  let left = 0;
+  let right = 0;
+  let map = new Map();
 
-// let input = "dvdf"
+  if (s.length === 0) return 0;
+
+  while (right < sArr.length) {
+    if (map.has(sArr[right])) {
+      max = Math.max(max, map.size);
+
+      left = map.get(sArr[right]) + 1;
+      right = left;
+
+      map.clear();
+
+      continue;
+    }
+
+    map.set(sArr[right], right);
+    // console.log(map);
+    right += 1;
+  }
+
+  max = Math.max(max, map.size);
+
+  return max;
+};
+
+
+// let input = "pwwk";
 // let input = "au"
-// let input = 'abcabcbb';
+let input = 'abcabcbb';
+// let input = 'dvdf';
 let result = lengthOfLongestSubstring(input)
 
 console.log(result);
