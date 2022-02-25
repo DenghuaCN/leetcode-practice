@@ -1,10 +1,10 @@
 function OriginLinkedList() {
   /**
-   * Node辅助类，包含一个element属性，存放添加到列表的值。一个next属性，指向下一个节点。
-   * @param {*} element
+   * Node辅助类，包含一个val属性，存放添加到列表的值。一个next属性，指向下一个节点。
+   * @param {*} val
    */
-  let Node = function(element) {
-    this.element = element;
+  let Node = function(val) {
+    this.val = val;
     this.next = null;
   };
 
@@ -12,8 +12,8 @@ function OriginLinkedList() {
   let head = null; // 存储第一个节点的引用
 
   // 向链表尾部添加一个新的节点
-  this.append = function(element) {
-    let node = new Node(element);
+  this.append = function(val) {
+    let node = new Node(val);
     let current = head;
 
     // 判断是否为空链表
@@ -33,12 +33,12 @@ function OriginLinkedList() {
   };
 
   // 向链表的特定位置插入一个新的节点
-  this.insert = function(position, element) {
+  this.insert = function(position, val) {
     if (position < 0 || position > length) {
       return null;
     }
 
-    let node = new Node(element),
+    let node = new Node(val),
         current = head,
         previous,
         index = 0;
@@ -94,19 +94,19 @@ function OriginLinkedList() {
   };
 
   // 从链表中移除指定项
-  this.remove = function(element) {
-    let index = this.indexOf(element);
+  this.remove = function(val) {
+    let index = this.indexOf(val);
 
     return this.removeAt(index);
   }
 
   // 返回节点在链表中的索引，如果链表没有该节点则返回-1
-  this.indexOf = function(element) {
+  this.indexOf = function(val) {
     let current = head,
         index = 0;
 
     while (current) {
-      if (element === current.element) {
+      if (val === current.val) {
         return index;
       }
       index++;
@@ -133,7 +133,7 @@ function OriginLinkedList() {
         string = '';
 
     while (current) {
-      string += current.element + (current.next ? ":next->" : "");
+      string += current.val + (current.next ? ":next->" : "");
       current = current.next;
     }
     return string;

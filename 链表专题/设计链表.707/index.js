@@ -1,10 +1,10 @@
 /**
  * @Class Node
- * @param {*} element
+ * @param {*} val
  * @return {InstanceType} Node
  */
-function Node(element) {
-  this.element = element;
+function Node(val) {
+  this.val = val;
   this.next = null;
 }
 
@@ -30,7 +30,7 @@ MyLinkedList.prototype.get = function(index) {
     currentNode = currentNode.next;
   }
 
-  return currentNode.element;
+  return currentNode.val;
 };
 
 /**

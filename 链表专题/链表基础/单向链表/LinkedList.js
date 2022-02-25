@@ -18,23 +18,22 @@
   #head = null;
 
   /**
-   * Node辅助类，包含一个element属性，存放添加到列表的值。一个next属性，指向下一个节点。
+   * Node辅助类，包含一个val属性，存放添加到列表的值。一个next属性，指向下一个节点。
    * @static Node
    */
-  Node(element) {
-    this.element = element;
+  Node(val) {
+    this.val = val;
     this.next = null;
   }
 
   /**
    * 向链表尾部添加一个新的节点
    * @method append
-   * @param {number} position
-   * @param {*} element
+   * @param {*} val
    */
-  append(element) {
+  append(val) {
     // 生成节点
-    let newNode = this.Node(element);
+    let newNode = this.Node(val);
 
     // 链表为空
     if (head === null) {
@@ -57,14 +56,14 @@
    * 向链表的特定位置插入一个新的节点
    * @method insert
    * @param {number} position
-   * @param {*} element
+   * @param {*} val
    */
-  insert(element, element) {
+  insert(position, val) {
     if (position < 0 || position > this.#length) {
       throw new RangeError('Position must be between ' + 0 + ' and ' + this.#length);
     }
 
-    let newNode = new this.Node(element),
+    let newNode = new this.Node(val),
         currentNode = this.#head;
         index = 0,
         previousNode;
@@ -119,7 +118,7 @@
   /**
    * 返回节点在链表中的索引
    * @method indexOf
-   * @param {*} element
+   * @param {*} val
    * @return {number}
    */
    indexOf() {}
