@@ -47,7 +47,7 @@ let deleteDuplicates = function(head) {
   while (cur) {
     let nextNode = cur.next;
 
-    // 如果当前节点数值域与下一节点数值域形同，则递归nextNode节点，直到找到不相同的那个节点
+    // 如果当前节点数值域与下一节点数值域相同，则递归nextNode节点，直到找到不相同的那个节点
     while (nextNode && nextNode.val === cur.val) { // 这里要注意nextNode.next为null的情况
       nextNode = nextNode.next; // (nextNode.val !== cur.val) OR (nextNode === null) 就会跳出循环
     }
