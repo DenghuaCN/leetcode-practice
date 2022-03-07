@@ -14,13 +14,13 @@
   输入: [4,1,2,1,2]
   输出: 4
  */
-let nums = [4,1,2,1,2];
 
 /**
+ * 暴力
  * @param {number[]} nums
  * @return {number}
  */
- let singleNumber = function(nums) {
+ let singleNumber2 = function(nums) {
   // sort参数指定一个自定义排序的函数，!如果省略了该传值，数组的元素会先转换为string!，再根据每个字符在Unicode的值来排序
   nums.sort((a, b) => (a - b));
 
@@ -37,6 +37,33 @@ let nums = [4,1,2,1,2];
   // 这个解法只适用于相同元素出现2次的情况
 };
 
-let result = singleNumber(nums);
+
+/**
+ * hash
+ */
+let singleNumber = function(nums) {
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const element = nums[i];
+
+    if (!map.has(element)) {
+      map.set(element, 1);
+      continue;
+    }
+
+    map.set(element, map.get(element) + 1);
+  }
+
+  for (const [key, value] of map) {
+    if (value < 2) {
+      return key;
+    }
+  }
+};
+
+
+let input = [2, 2, 1];
+let result = singleNumber(input);
 
 console.log(result);

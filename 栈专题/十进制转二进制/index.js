@@ -42,7 +42,7 @@ let decimalTransfer = (num) => {
 
 // let input = 0;
 // let input = 10;
-let input = 8;
+let input = 50;
 let result = decimalTransfer(input);
 
 console.log(result);
