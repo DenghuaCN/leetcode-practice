@@ -28,7 +28,7 @@
 
 
 /**
- * 滑动窗口
+ * 滑动窗口(可变窗口大小)
  *
  * @func minSubArrayLen
  * @param {number} target
@@ -39,19 +39,21 @@ let minSubArrayLen = (target, nums) => {
 
   let left = 0, right = 0;
   let ans = Number.MAX_VALUE;
-  let sum = 0;
+  let sum = 0; // 窗口和
 
   while (right < nums.length) {
-
     sum += nums[right];
 
-    while (sum >= target) {
-      ans = Math.min(ans, right - left + 1);
-      sum = sum - nums[left];
-      left+=1;
+    // 当窗口和满足可行解要求
+    while (sum >= target) { // 找到可行解，继续找最优解
+      ans = Math.min(ans, right - left + 1); // 记录当前的窗口大小
+
+      let windowLeftValue = nums[left];
+      sum = sum - windowLeftValue; // 缩小窗口是否继续满足
+      left += 1;
     }
 
-    right+=1;
+    right += 1; // 找不到可行解，扩大窗口
   }
 
   return ans === Number.MAX_VALUE? 0 : ans
