@@ -127,6 +127,19 @@ function OriginLinkedList() {
   // 获取链表的引用
   this.getHead = function() {return head};
 
+  // 获取链表最后一个节点
+  this.getTail = function() {
+    let current = head;
+    let tail = null;
+
+    while (current && current.next) {
+      current = current.next;
+    }
+    tail = current;
+
+    return tail;
+  };
+
   // toString对象会把LinkedList对象转换成一个一个字符串
   this.toString = function() {
     let current = head,
