@@ -78,7 +78,7 @@ let removeNthFromEnd3 = function(head, n) {
 };
 
 /**
- * HashMap(使用哈希表存储节点，一次遍历即可)
+ * HashMap(使用哈希映射存储节点，一次遍历即可)
  *
  * @param {ListNode} head
  * @param {number} n

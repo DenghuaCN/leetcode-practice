@@ -85,7 +85,7 @@ constructorRingLinkedList(head, pos);
  */
 
 /**
- * 使用HashSet保存每一个节点，保存节点前向集合内搜索是否已经存在此节点，存在说明构成环形链表
+ * 使用哈希集合保存每一个节点，保存节点前向集合内搜索是否已经存在此节点，存在说明构成环形链表
  * 空间复杂度 O(n)
  *
  * @param {ListNode} head
