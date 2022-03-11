@@ -53,7 +53,7 @@
   进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？
  */
 
-let constructorInput = require('./constructor.js');
+let constructorInput = require('./construct');
 
 let intersectVal = 3; // 相交的节点的值
 let listA = [3]; // 链表A
@@ -80,7 +80,7 @@ let {headA, headB} = constructorInput(intersectVal, listA, listB, skipA, skipB);
  * @param {ListNode} headB
  * @return {ListNode}
  */
-let getIntersectionNode = function(headA, headB) {
+let originGetIntersectionNode = function(headA, headB) {
   let setA = new Set();
   let setB = new Set();
 
@@ -124,6 +124,62 @@ let getIntersectionNode = function(headA, headB) {
   return null;
 };
 
-let result = getIntersectionNode(headA, headB);
 
+/**
+ * 哈希法(优化)
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+let getIntersectionNode2 =  function(headA, headB) {
+  let set = new Set();
+
+  let tmp = headA;
+  while (tmp !== null) {
+    set.add(tmp);
+    tmp = tmp.next;
+  }
+
+  tmp = headB;
+
+  while (tmp !== null) {
+    if (set.has(tmp)) {
+      return tmp;
+    }
+    tmp = tmp.next;
+  }
+  return null;
+}
+
+
+/**
+ * 双指针(妙哇！)
+ * 参考: https://leetcode-cn.com/problems/intersection-of-two-linked-lists/solution/intersection-of-two-linked-lists-shuang-zhi-zhen-l/
+ *
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+let getIntersectionNode =  function(headA, headB) {
+  let a = headA;
+  let b = headB;
+
+  while (a !== b) {
+    if (a) {
+      a = a.next;
+    } else {
+      a = headB
+    }
+    if (b) {
+      b = b.next;
+    } else {
+      b = headA;
+    }
+  }
+
+  return a;
+}
+
+
+let result = getIntersectionNode(headA, headB);
 console.log('result', result);
