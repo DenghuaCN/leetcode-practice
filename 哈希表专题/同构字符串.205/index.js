@@ -52,6 +52,10 @@ let isIsomorphic = function(s, t) {
     i++;
   }
 
+  console.log(s2t);
+  console.log(t2s);
+
+
   let j = 0;
   while (j < len) {
     let x= sArr[j];
@@ -67,8 +71,8 @@ let isIsomorphic = function(s, t) {
   return true;
 };
 
-let input = ['egg', 'add'];
-// let input = ['foo', 'bar'];
+// let input = ['egg', 'add'];
+let input = ['foo', 'bar'];
 // let input = ['paper', 'title']
 let result = isIsomorphic(...input);
 
