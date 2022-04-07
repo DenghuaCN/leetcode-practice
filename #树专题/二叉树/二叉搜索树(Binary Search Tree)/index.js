@@ -89,6 +89,100 @@ BinarySearchTree.prototype.insert = function(val) {
   }
 }
 
+
+/**
+ * 中序遍历
+ * 是一种以上行顺序访问BST所有节点的遍历方式，也就是以从 最小 到 最大的顺序访问所有节点。常用的一种应用就是对树进行排序操作
+ * @method inOrderTraverse
+ */
+BinarySearchTree.prototype.inOrderTraverse = function(callback) {
+
+  /**
+   * 要通过中序遍历的方法遍历一棵树，首先要检查以参数形式传入的节点是否为null，这也是终止递归的基线条件（base case）
+   * 然后，递归调用相同的函数来访问左侧子节点。接着对这个节点进行一些操作（callback），然后再访问右侧子节点。
+   * @param {*} node
+   * @param {*} callback
+   */
+  let inOrderTraverseNode = (node, callback) => {
+    // 可以抽象的认为，每个节点每次都会有两个函数调用入栈，一个检查左子树，一个检查右子树
+
+    if (node === null) {
+      return;
+    }
+    // 递归当前节点的左子节点，当到达最后一个节点时
+    inOrderTraverseNode(node.left, callback);
+
+    // 将节点的值回调函数
+    callback(node.val, node); // 当前节点 的 左子节点 遍历完成后，就可以处理当前节点。即当前节点的 所有左子节点 都比它 小。当前节点的 所有右子节点 都比它 大，突出二分性质。
+
+    // 递归当前节点的右子树
+    inOrderTraverseNode(node.right, callback);
+    // 每次递归中的遍历都会依次检查当前节点的所有左子节点和当前节点的所有右子节点，即使可能某个节点不存在左子节点或者右子节点或都不存在，也会严格按照先左后右顺序遍历
+  }
+
+  /**
+   * inOrderTraverseNode接受一个回调函数作为参数，回调函数用来定义我们对遍历到的 每一个节点 进行的操作（也叫做访问者模式)
+   */
+   inOrderTraverseNode(this.root, callback);
+}
+
+
+/**
+ * 先序遍历
+ * 是以优先于后台节点的顺序访问每个节点的。先序遍历的一种应用是打印一个结构化的文档
+ * @method preOrderTraverse
+ */
+BinarySearchTree.prototype.preOrderTraverse = function(callback) {
+
+  /**
+   * 先序遍历的不同点是，先序遍历会先访问节点本身，然后在访问它的左子节点，最后是右子节点。
+   * @param {*} node
+   * @param {*} callback
+   */
+   let preOrderTraverseNode = (node, callback) => {
+    if (node === null) {
+      return;
+    }
+    callback(node.val, node);
+
+    preOrderTraverseNode(node.left, callback);
+    preOrderTraverseNode(node.right, callback);
+  }
+
+  preOrderTraverseNode(this.root, callback);
+}
+
+
+/**
+ * 后序遍历
+ * 是先访问节点的后代节点，再访问节点本身。后序遍历一个应用是计算一个目录和它的子目录中所有文件所占空间的大小
+ * @method postOrderTraverse
+ */
+ BinarySearchTree.prototype.postOrderTraverse = function(callback) {
+
+  /**
+   * 后序遍历会先访问左子节点，然后是右侧子节点，最后是当前节点本身。
+   * @param {*} node
+   * @param {*} callback
+   */
+   let postOrderTraverseNode = (node, callback) => {
+    if (node === null) {
+      return;
+    }
+    postOrderTraverseNode(node.left, callback);
+    postOrderTraverseNode(node.right, callback);
+
+    callback(node.val, node);
+  }
+
+  postOrderTraverseNode(this.root, callback);
+}
+
+
+
+
+
+
 let tree = new BinarySearchTree();
 
 tree.insert(11);
@@ -105,8 +199,18 @@ tree.insert(14);
 tree.insert(20);
 tree.insert(18);
 tree.insert(25);
+tree.insert(6);
 
+/**
+ * 定义遍历回调函数的内的操作
+ */
+let printNode = (val, node) => {
+  console.log(val);
+}
 
+// tree.inOrderTraverse(printNode);
+// tree.preOrderTraverse(printNode);
+tree.postOrderTraverse(printNode);
 
 
 console.group(tree.print());

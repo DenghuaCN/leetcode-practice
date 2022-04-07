@@ -36,9 +36,14 @@
  * 二分 (https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/solution/xun-zhao-xuan-zhuan-pai-xu-shu-zu-zhong-5irwp/)
  *
  * 考虑数组中的最后一个元素 last：
- * 在 最小值右侧 的元素（不包括最后一个元素本身），它们的值一定都严格小于 last；
- * 而在最小值左侧的元素，它们的值一定都严格大于 last。因此，
- * 我们可以根据这一条性质，通过二分查找的方法找出最小值。
+ * 1. 最小值 (右侧) 的元素（不包括最后一个元素本身），它们的值一定都严格小于 last;
+ * 2. 而在最小值 (左侧) 的元素，它们的值一定都严格大于 last。因此，
+ *
+ *  if (nums[middle] < nums[high]) {
+ *    处于右边的范围，忽略middle右边
+ *  } else {
+ *    处于左边的范围，忽略middle左边
+ *  }
  *
  * @param {number[]} nums
  * @return {number}
@@ -56,11 +61,12 @@ let findMin = function(nums) {
       low = middle + 1;
     }
   }
+  // console.log(high === low); //最后两个指针 都指向最小值
 
   return nums[low];
 };
 
-let input = [4,5,6,7,0,1,2];
+let input = [4,5,6,7,0,1,2]
 let result = findMin(input);
 
 console.log(result);
