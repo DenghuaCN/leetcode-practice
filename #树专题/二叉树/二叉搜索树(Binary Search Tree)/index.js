@@ -208,9 +208,9 @@ let printNode = (val, node) => {
   console.log(val);
 }
 
-// tree.inOrderTraverse(printNode);
+tree.inOrderTraverse(printNode);
 // tree.preOrderTraverse(printNode);
-tree.postOrderTraverse(printNode);
+// tree.postOrderTraverse(printNode);
 
 
 console.group(tree.print());
