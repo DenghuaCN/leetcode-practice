@@ -74,7 +74,7 @@ let rotate3 = function(nums, k) {
 };
 
 /**
- * 官方题解k
+ * 官方题解
  */
 let rotate = function(nums, k) {
   const n = nums.length;
@@ -98,4 +98,4 @@ let input = [[1,2,3,4,5,6,7], 3];
 
 let result = rotate2(...input);
 
-console.log('result', result);
+console.log(result);
