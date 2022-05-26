@@ -164,15 +164,15 @@ function OriginLinkedList() {
   };
 }
 
-// let originList = new OriginLinkedList();
+let originList = new OriginLinkedList();
 
-// originList.append("a");
-// originList.append("b");
-// originList.append("c");
-// originList.append("d");
+originList.append("a");
+originList.append("b");
+originList.append("c");
+originList.append("d");
 
-// originList.list();
-// originList.print();
+originList.list();
+originList.print();
 
 // let indexValue = 'b';
 // console.log(`${indexValue}-indexOf: `, originList.indexOf(indexValue));

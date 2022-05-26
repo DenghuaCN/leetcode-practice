@@ -23,7 +23,7 @@
 */
 
 /**
- * 暴力Sliding Window | 时空复杂度表现不佳
+ * 暴力Sliding Window
  *
  * @param {string} s
  * @return {number}
@@ -31,9 +31,6 @@
 let lengthOfLongestSubstring2 = function(s) {
   if (s.length === 0) {
     return 0;
-  }
-  if (s.length === 1) {
-    return 1;
   }
 
   let sArr = s.split('');
@@ -49,19 +46,22 @@ let lengthOfLongestSubstring2 = function(s) {
   }
 
 
-  let right = 0;
+  let right = 0; // 使用快指针遍历字符串
   while (right <= sArr.length - 1) {
+    const EVERY_TIME_CHAR = sArr[right];
 
-    if (map.has(sArr[right])) {
-      let repeatCharIndex = map.get(sArr[right]); // 拿到重复的字符在Map中的索引
-      right = repeatCharIndex + 1; // 初始化指针到索引 + 1的位置
+    // 当哈希表遇到第一个重复字符的时候，就能确定一个 无重复子串
+    if (map.has(EVERY_TIME_CHAR)) {
+      let repeatCharIndex = map.get(EVERY_TIME_CHAR);
+      right = repeatCharIndex + 1; // 初始化快指针到索引 + 1的位置
 
-      longSubWords.push(getMapWords());
-      map = new Map(); // 初始化Map
+      longSubWords.push(getMapWords()); // 将哈希表中的无重复子串收集到数组内存放
+      map.clear(); // 初始化Map，准备下一次收集
       continue;
     }
 
-    map.set(sArr[right], right); // key: 字符  value: 字符索引
+    map.set(EVERY_TIME_CHAR, right);// 以字符为key，索引为value建立哈希表
+
     right += 1;
   }
 
@@ -69,18 +69,15 @@ let lengthOfLongestSubstring2 = function(s) {
     longSubWords.push(getMapWords());
   }
 
-  console.log(longSubWords);
 
-  let minCount = Number.MIN_VALUE;
+  let max = 0;
   for (let i = 0; i < longSubWords.length; i++) {
-    const everyTimeSubWordsLength = longSubWords[i].length;
-
-    if (everyTimeSubWordsLength > minCount) {
-      minCount = everyTimeSubWordsLength;
+    if (longSubWords[i].length > max) {
+      max = longSubWords[i].length;
     }
   }
 
-  return minCount;
+  return max;
 };
 
 /**
@@ -91,28 +88,31 @@ let lengthOfLongestSubstring2 = function(s) {
  */
 let lengthOfLongestSubstring = function(s) {
   let sArr = s.split('');
-  let max = Number.MIN_VALUE;
-  let left = 0;
-  let right = 0;
-  let map = new Map();
+
+  let max = -1, // 计数
+      slow = 0, // 慢指针
+      fast = 0, // 快指针
+      map = new Map();
 
   if (s.length === 0) return 0;
 
-  while (right < sArr.length) {
-    if (map.has(sArr[right])) {
-      max = Math.max(max, map.size);
+  while (fast < sArr.length) { // 使用快指针扫描输入字符串
+    const EVERY_TIME_CHAR = sArr[fast];
 
-      left = map.get(sArr[right]) + 1;
-      right = left;
+    if (map.has(EVERY_TIME_CHAR)) { // 如果哈希表中存在重复字符，更新一次计数。
+      max = map.size > max? map.size : max;
+
+      slow = map.get(EVERY_TIME_CHAR) + 1;
+      fast = slow;
 
       map.clear();
 
       continue;
     }
 
-    map.set(sArr[right], right);
-    // console.log(map);
-    right += 1;
+    map.set(EVERY_TIME_CHAR, fast); // 以字符为key，索引为value建立哈希表
+
+    fast += 1;
   }
 
   max = Math.max(max, map.size);
@@ -121,10 +121,10 @@ let lengthOfLongestSubstring = function(s) {
 };
 
 
-// let input = "pwwk";
+let input = "pwwk";
 // let input = "au"
-let input = 'abcabcbb';
+// let input = 'abcabcbb';
 // let input = 'dvdf';
-let result = lengthOfLongestSubstring(input)
+let result = lengthOfLongestSubstring2(input)
 
 console.log(result);
