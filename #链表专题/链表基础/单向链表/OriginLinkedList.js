@@ -1,13 +1,13 @@
-function OriginLinkedList() {
-  /**
-   * Node辅助类，包含一个val属性，存放添加到列表的值。一个next属性，指向下一个节点。
-   * @param {*} val
-   */
-  let Node = function(val) {
-    this.val = val;
-    this.next = null;
-  };
+/**
+ * Node辅助类，包含一个val属性，存放添加到列表的值。一个next属性，指向下一个节点。
+ * @param {*} val
+ */
+function Node(val) {
+  this.val = val;
+  this.next = null;
+};
 
+function OriginLinkedList() {
   let length = 0; // 链表内部存储数量的length属性（私有）
   let head = null; // 存储第一个节点的引用
 
@@ -140,7 +140,7 @@ function OriginLinkedList() {
     return tail;
   };
 
-  // toString对象会把LinkedList对象转换成一个一个字符串
+  // toString对象会把LinkedList对象转换成一个字符串
   this.toString = function() {
     let current = head,
         string = '';
@@ -164,15 +164,15 @@ function OriginLinkedList() {
   };
 }
 
-let originList = new OriginLinkedList();
+// let originList = new OriginLinkedList();
 
-originList.append("a");
-originList.append("b");
-originList.append("c");
-originList.append("d");
+// originList.append("a");
+// originList.append("b");
+// originList.append("c");
+// originList.append("d");
 
-originList.list();
-originList.print();
+// originList.list();
+// originList.print();
 
 // let indexValue = 'b';
 // console.log(`${indexValue}-indexOf: `, originList.indexOf(indexValue));
@@ -185,4 +185,7 @@ originList.print();
 // originList.print();
 
 
-module.exports = OriginLinkedList;
+module.exports = {
+  OriginLinkedList,
+  Node
+};

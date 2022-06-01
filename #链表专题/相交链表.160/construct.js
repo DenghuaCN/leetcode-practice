@@ -1,4 +1,4 @@
-let OriginLinkedList = require('../链表基础/单向链表/OriginLinkedList.js')
+let {OriginLinkedList, Node} = require('../链表基础/单向链表/OriginLinkedList.js')
 
 /**
  * @param {number} intersectVal // 相交的节点的值

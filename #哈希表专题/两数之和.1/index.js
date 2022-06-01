@@ -49,27 +49,43 @@
  * @param {number} target
  * @return {number[]}
  */
- let twoSum = function(numbers, target) {
+ let twoSum3 = function(numbers, target) {
   let map = new Map();
 
   for (let i = 0; i < numbers.length; i++) {
-    map.set(numbers[i], i); // 以 数值为key,索引为value建立哈希映射
+    map.set(numbers[i], i);
   }
 
   for (let i = 0; i < numbers.length; i++) {
     let legalNumber = target - numbers[i];
     let legalIndex = map.get(legalNumber);
 
-    if (typeof legalIndex === 'number' && legalIndex !== i) { // case: [[3,2,4], 6]，key不能相等，即3+3 = 6  => [0, 0]
+    if (typeof legalIndex === 'number' && legalIndex !== i) {
       let ans = [i, legalIndex]
-
       return ans;
     }
   }
 };
 
-let input = [[3,2,4], 6];
-// let input = [[3, 3], 6];
+/**
+ * 优化哈希
+ */
+ let twoSum = function(numbers, target) {
+  let map = new Map();
+
+  for (let i = 0; i < numbers.length; i++) {
+    let legalNumber = target - numbers[i];
+
+    if (typeof map.get(legalNumber) === 'number') { // 索引为0会进不了return，使用类型判断
+      return [i, map.get(legalNumber)];
+    }
+    map.set(numbers[i], i);
+  }
+  return [];
+};
+
+// let input = [[3,2,4], 6];
+let input = [[3, 3], 6]; // case: [[3,2,4], 6]，key不能相等，即3+3 = 6  => [0, 0]
 let result = twoSum(...input);
 
 console.log(result);

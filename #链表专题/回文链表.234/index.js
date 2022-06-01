@@ -18,7 +18,8 @@
  */
 
 
-let LinkedListClass = require('../链表基础/单向链表/OriginLinkedList.js')
+let {LinkedListClass, Node} = require('../链表基础/单向链表/OriginLinkedList.js')
+
 let exampleLinkList = new LinkedListClass();
 
 

@@ -50,7 +50,7 @@ let reverseList = function(head) {
   return p;
 };
 
-let OriginLinkedList = require('../链表基础/单向链表/OriginLinkedList.js')
+let {OriginLinkedList, Node} = require('../链表基础/单向链表/OriginLinkedList.js')
 let myLinkedList = new OriginLinkedList();
 myLinkedList.append(1);
 myLinkedList.append(2);

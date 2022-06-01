@@ -37,7 +37,7 @@
  * }
  */
 
-let OriginLinkedList = require('../链表基础/单向链表/OriginLinkedList.js')
+let {OriginLinkedList, Node} = require('../链表基础/单向链表/OriginLinkedList.js')
 let myLinkedList = new OriginLinkedList();
 let linkedLists = [3,2,0,-4]; // 链表初始结构
 for (let i = 0; i < linkedLists.length; i++) {

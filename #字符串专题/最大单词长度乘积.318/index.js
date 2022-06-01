@@ -24,10 +24,11 @@
  */
 
 /**
+ * 暴力O(n^2)
  * @param {string[]} words
  * @return {number}
  */
-let maxProduct = function(words) {
+let maxProduct2 = function(words) {
   let existCommonChar = (a, b) => {
     let shortStr = a.length > b.length? b : a;
     let longStr = a.length > b.length? a : b;
@@ -65,8 +66,8 @@ let maxProduct = function(words) {
 // let input = ["abcw","baz","foo","bar","xtfn","abcdef"];
 // let input = ["a","ab","abc","d","cd","bcd","abcd"];
 // let input = ["a","aa","aaa","aaaa"];
-// let result = maxProduct(input);
-// console.log(result);
+let result = maxProduct(input);
+console.log(result);
 
 
 /**
@@ -121,4 +122,4 @@ let diff = (fn1, fn2) => {
   }
 }
 
-diff(maxProduct, fn2)
+// diff(maxProduct, fn2)

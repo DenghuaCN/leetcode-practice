@@ -14,7 +14,7 @@
 
  */
 
-let OriginLinkedList = require('../链表基础/单向链表/OriginLinkedList.js')
+let {OriginLinkedList, Node} = require('../链表基础/单向链表/OriginLinkedList.js')
 let myLinkedList = new OriginLinkedList();
 
 

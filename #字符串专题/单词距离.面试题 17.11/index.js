@@ -48,6 +48,7 @@ let findClosest2 = function(words, word1, word2) {
   return min;
 };
 
+// 优化
 let findClosest = function(words, word1, word2) {
   let first = Number.MAX_VALUE;
   let last = Number.MAX_VALUE;
