@@ -61,26 +61,24 @@ let isValid = function(s) {
     return false;
   }
 
+  const leftBrackets = new Set(['(', '[', '{']),
+        rightBrackets = new Set([')', ']', '}']),
+        completeBrackets = new Set(['()', '[]', '{}']);
+
   let myStack = new Stack();
-  let completeSet = ['()', '[]', '{}'];
   let sArr = s.split('');
 
   for (let i = 0; i < sArr.length; i++) {
-    const element = sArr[i];
+    const CHAR = sArr[i];
 
-    if ('([{'.includes(element)) { // 匹配任意大小的左括号
-      myStack.push(element);
+    if (leftBrackets.has(CHAR)) { // 匹配任意大小的左括号
+      myStack.push(CHAR);
+    } else if (rightBrackets.has(CHAR)) { // 匹配任意大小的右括号
+      let completeBracket = `${myStack.peek()}${CHAR}` // 将栈顶元素 与 未知类型的右括号组合为新的字符串
 
-    } else if (')]}'.includes(element)) { // 匹配任意大小的右括号
-      let completeBracket = `${myStack.peek()}${element}` // 将栈顶元素 与 未知类型的右括号组合为新的字符串
-
-      if (completeSet.includes(completeBracket)) { // 如果新的字符串命中集合内任一元素，则说明为正确的组合，可以出栈
+      if (completeBrackets.has(completeBracket)) { // 如果新的字符串命中集合内任一元素，则说明为正确的组合，可以出栈
         myStack.pop();  // 只有栈顶元素与匹配到的元素能组成一对时，才能出栈，即'()', '[]', '{}'
-        continue;
       }
-
-      // 否则说明此括号字串的嵌套规则错误
-      return false;
     }
   }
 

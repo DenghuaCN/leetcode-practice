@@ -69,4 +69,6 @@ let inputVal = 2;
 
 let output = removeElement(inputNum, inputVal);
 
+console.log(output);
+
 /* 考点: 数组，双指针(快慢指针) */
