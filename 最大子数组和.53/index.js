@@ -16,8 +16,8 @@
     输出：23 [5,4,-1,7,8]
 
   提示：
-    1 <= nums.length <= 105
-    -104 <= nums[i] <= 104
+    1 <= nums.length <= 10^5
+    -10^4 <= nums[i] <= 10^4
    
   进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
 */
@@ -26,67 +26,30 @@
 //
 
 /**
- * 暴力法 O(n^3)
- * @param {number[]} nums
- * @return {number}
- */
-let maxSubArraySlowly = function(nums) {
-  let max = Math.max(...nums); // 默认应以数组中最大的整数作为默认值，不能使用0作为默认值 case: [-1] case: [-1, -2]
-  let len = nums.length;
-
-  let k = 1; // 窗口范围 1 <= k <= nums.length
-  /**
-   * k = 1 窗口循环5次 确定此数组在 K 范围下的最大值
-   * k = 2 窗口循环4次 ...
-   * k = 3 窗口循环3次 ...
-   * k = 4 窗口循环2次 ...
-   * k = 5 窗口循环1次 ...
-   */
-
-  while (k <= nums.length) { // 此轮确定 k 的范围
-
-    // 此轮确定 数组在这个 范围(k) 内 应循环 多少次得到此k值下的的最大值
-    for (let i = 0; i < len - k + 1; i++) {
-      // 此轮用于累计这个范围(k)下所有轮次窗口的计数
-      let everyTimeTotal = 0;
-
-      for (let j = 0; j < k; j++) {
-        everyTimeTotal = everyTimeTotal + nums[j + i]; // +i 是因为需要移动窗口 [5,4,-1,7,8] -> (5 + 4) -> (4 + -1) -> (-1 + 7) -> (7 + 8)
-      }
-
-      max = Math.max(everyTimeTotal, max);
-      // console.log(`K: ${k}, 此轮k值循环下，得到的最大值为${everyTimeTotal}, 最大值为${max}`);
-    }
-
-    k += 1; // 增大窗口范围
-  }
-
-  console.log(max);
-  // return max;
-};
-
-
-/**
- * 动态规划
  * @param {number[]} nums
  * @return {number}
  */
 let maxSubArray = function(nums) {
   let pre = 0, maxAns = nums[0];
+
   nums.forEach((x) => {
-      pre = Math.max(pre + x, x);
-      maxAns = Math.max(maxAns, pre);
+      pre = Math.max(pre + x, x); // 将之前的数与之后的数相加
+      maxAns = Math.max(maxAns, pre); // 相加的数与之前的数比较，如果相加之后大于被加数，则可作为一个zi
+
+      console.log(pre, maxAns);
   });
+
   return maxAns;
 };
 
-// let input = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-// let input = [-1];
-// let input = [5,4,-1,7,8];
-// let input = [-1, -2];
-// let input = [1, 2, -1];
+let input = [-2, 1, -3, 4, -1, 2, 1, -5, 4]; // 6
+// let input = [-1]; // -1
+// let input = [5,4,-1,7,8]; // 23
+// let input = [-1, -2]; // -1
+// let input = [1, 2, -1]; // 3
+
 
 let output = maxSubArray(input);
-
+console.log(output);
 
 // 考点： 贪心 动态规划
