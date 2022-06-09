@@ -34,7 +34,7 @@ let maxSubArray = function(nums) {
 
   nums.forEach((x) => {
       pre = Math.max(pre + x, x); // 将之前的数与之后的数相加
-      maxAns = Math.max(maxAns, pre); // 相加的数与之前的数比较，如果相加之后大于被加数，则可作为一个zi
+      maxAns = Math.max(maxAns, pre); // 相加的数与之前的数比较，如果相加之后大于被加数，则可作为最终连续子数组一个部分
 
       console.log(pre, maxAns);
   });
