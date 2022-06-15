@@ -1,4 +1,5 @@
 /**
+  .58
   给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。
 
   单词 是指仅由字母组成、不包含任何空格字符的最大子字符串。
@@ -17,7 +18,7 @@
 
   提示：
 
-  1 <= s.length <= 104
+  1 <= s.length <= 10^4
   s 仅有英文字母和空格 ' ' 组成
   s 中至少存在一个单词
  */
@@ -31,30 +32,27 @@
  */
 let lengthOfLastWord = function(s) {
   let reg = /[a-zA-Z]/;
-  let sArr = s.split('');
 
   let lastIndexStart = -1;
   let lastIndexEnd = -1;
 
-  for (let i = sArr.length - 1; i >= 0; i--) {
-    if (lastIndexStart === -1 && reg.test(sArr[i])) {
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (lastIndexStart === -1 && reg.test(s[i])) { // 从尾部开始向左移动，当匹配到第一个字母时，固定start指针，只移动end指针
       lastIndexStart = i;
       lastIndexEnd = i;
-    } else if (lastIndexStart !== 0 && reg.test(sArr[i])){
+    } else if (lastIndexStart !== -1 && reg.test(s[i])){
       lastIndexEnd = i;
     }
 
-
-    if (lastIndexStart !== -1 && !reg.test(sArr[i])) {
+    if (lastIndexStart !== -1 && !reg.test(s[i])) { // 当不再匹配到字母，且指针不为-1，此时两个指针分别指向最后一个单词的起始位置和终止位置。
       lastIndexEnd = i + 1;
       break;
     }
   }
 
+  let lastWord = s.substring(lastIndexEnd, lastIndexStart + 1); // 可直接return lastIndexStart - lastIndexEnd) + 1
 
-  let result = sArr.splice(lastIndexEnd, lastIndexStart - lastIndexEnd + 1);
-
-  return result.join('').length;
+  return lastWord.length;
 }
 
 
@@ -113,8 +111,9 @@ let lengthOfLastWordSlowly = function(s) {
 
 
 // let input = "Hello World"
-let input = "df day"
+// let input = "df day"
 // let input = " a"
+let input = "   fly me   to   the moon  ";
 
 
 let result = lengthOfLastWord(input);

@@ -99,16 +99,16 @@ let hasCycle2 = function(head) {
   let set = new Set();
   let cur = head;
 
-  while (cur) {
-    if (set.has(cur)) { // O(1)
+  while (cur) { // 注意如果为环形链表需要手动调出循环
+    if (set.has(cur)) {
       return true;
     } else {
       set.add(cur);
 
       if (cur.next) {
         cur = cur.next;
-      } else { // 环形链表必存在 任意节点有cur.next
-        return false;
+      } else {
+        return false; // 遍历到链表尾部，退出循环
       }
     }
   }

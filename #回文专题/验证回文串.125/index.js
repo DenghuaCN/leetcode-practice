@@ -14,7 +14,7 @@
   解释："raceacar" 不是回文串
    
   提示：
-  1 <= s.length <= 2 * 105
+  1 <= s.length <= 2 * 10^5
   字符串 s 由 ASCII 字符组成
 
  */
@@ -23,7 +23,7 @@
  * @param {string} s
  * @return {boolean}
  */
-let isPalindrome = function(s) {
+let isPalindrome2 = function(s) {
   let reg = /[a-zA-Z0-9]/;
   let sArr = s.split('');
   let newStrArr = [];
@@ -51,8 +51,36 @@ let isPalindrome = function(s) {
   return true;
 };
 
-// let input = 'A man, a plan, a canal: Panama';
-let input = '0P';
+// 优化
+let isPalindrome = function(s) {
+  let reg = /[a-zA-Z0-9]/;
+  s = s.toLocaleLowerCase();
+  let newStrArr = [];
+
+  for (let index = 0; index < s.length; index++) {
+    const element = s[index];
+    if (reg.test(element)) {
+      newStrArr.push(element);
+    }
+  }
+
+  let left = 0;
+  let right = newStrArr.length - 1;
+
+  while (left < right) {
+    if (newStrArr[left] !== newStrArr[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+
+  return true;
+};
+
+let input = 'A man, a plan, a canal: Panama';
+// let input = '0P';
 
 let result = isPalindrome(input);
 console.log(result);
