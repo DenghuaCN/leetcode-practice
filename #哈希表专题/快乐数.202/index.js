@@ -30,8 +30,7 @@
  * @return {boolean}
  */
 let isHappy = function(n) {
-
-  let getNext = (n) => {
+  let getDecimal = (n) => {
     let nextNum = 0;
     while (n > 0) {
       let power = n % 10;
@@ -50,7 +49,7 @@ let isHappy = function(n) {
       return true;
     }
 
-    n = getNext(n);
+    n = getDecimal(n);
   }
 
   return false;

@@ -46,7 +46,7 @@ let threeSum = function(nums) {
       } else if (curNum + nums[l] + nums[r] === 0) {
         ans.push([curNum, nums[l], nums[r]])
 
-        // -2i, -1L1, -1, -1L2, 3R2, 3, 3R1 如果不去重会导致重复添加
+        // case: -2i, -1L1, -1, -1L2, 3R2, 3, 3R1 如果不去重会导致重复的三元组
         while (l < r && nums[l] === nums[l + 1]) {
           l++;
         }
@@ -58,7 +58,6 @@ let threeSum = function(nums) {
       }
     }
   }
-
   return ans;
 };
 

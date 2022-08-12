@@ -40,7 +40,7 @@
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-let merge2 = function(nums1, m, nums2, n) {
+let merge3 = function(nums1, m, nums2, n) {
   nums1.splice(m, nums1.length - m, ...nums2);
   nums1.sort((a, b) => a - b);
 
@@ -51,7 +51,7 @@ let merge2 = function(nums1, m, nums2, n) {
 /**
  * 双指针
  */
-let merge = function(nums1, m, nums2, n) {
+let merge2 = function(nums1, m, nums2, n) {
   let sorted = new Array(m + n).fill(0);
   let p1 = 0;
   let p2 = 0;
@@ -83,7 +83,15 @@ let merge = function(nums1, m, nums2, n) {
   return nums1;
 };
 
+
+/**
+ * 优化
+ */
+let merge = function(nums1, m, nums2, n) {
+
+};
+
 let input = [[1,2,3,0,0,0] ,3 ,[2,5,6] ,3];
-let result = merge(...input);
+let result = merge2(...input);
 
 console.log(result);

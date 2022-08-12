@@ -33,40 +33,48 @@ let fourSum = function(nums, target) {
 
   nums = nums.sort((a, b) => {return a - b});
 
+  // 四数之和
   for (let i = 0; i < nums.length - 3; i++) {
     if (i > 0 && nums[i] === nums[i - 1]) continue;
-    const curNum = nums[i];
+    const LOOP1_NUM = nums[i];
 
+    // 三数之和
     for (let j = i + 1; j < nums.length - 2; j++) {
       if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+      const LOOP2_NUM = nums[j];
 
-      let l = j + 1;
-      let r = nums.length - 1;
-      while (l < r) {
-        if (curNum + nums[j] + nums[l] + nums[r] < target) {
-          l++;
-        } else if (curNum + nums[j] + nums[l] + nums[r] > target) {
-          r--;
-        } else if (curNum + nums[j] + nums[l] + nums[r] === target) {
-          ans.push([curNum, nums[j], nums[l], nums[r]]);
+      // 双数之和
+      let L = j + 1;
+      let R = nums.length - 1;
+      while (L < R) {
 
-          while (l < r && nums[l] === nums[l + 1]) {
-            l++;
-          }
-          while (l < r && nums[r] === nums[r - 1]) {
-            r--;
-          }
-          l++
-          r--;
+        if (LOOP1_NUM + LOOP2_NUM + nums[L] + nums[R] < target) {
+          L++;
+        } else if (LOOP1_NUM + LOOP2_NUM + nums[L] + nums[R] > target) {
+          R--;
         }
+        else if (LOOP1_NUM + LOOP2_NUM + nums[L] + nums[R] === target) {
+          // 收集答案
+          ans.push([LOOP1_NUM, LOOP2_NUM, nums[L], nums[R]]);
+          // 过滤
+          while (L < R && nums[L] === nums[L + 1]) {
+            L++;
+          }
+          while (L < R && nums[R] === nums[R - 1]) {
+            R--;
+          }
+          L = L + 1;
+          R = R - 1;
+        }
+
       }
     }
   }
   return ans;
 };
 
-// let input = [[1,0,-1,0,-2,2], 0]; // -2 -1 0 0 1 2
-let input = [[2,2,2,2,2], 8];
+let input = [[1,0,-1,0,-2,2], 0]; // -2 -1 0 0 1 2
+// let input = [[2,2,2,2,2], 8];
 let result = fourSum(...input);
 
 console.log(result);

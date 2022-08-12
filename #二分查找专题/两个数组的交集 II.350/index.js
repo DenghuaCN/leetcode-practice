@@ -74,23 +74,14 @@ let intersect = function(nums1, nums2) {
 
   for (let i = 0; i < longArr.length; i++) {
     let KEY = longArr[i];
-
-    // 已经存在，则数量+1
-    if (map.get(KEY)) {
-      map.set(KEY, map.get(KEY) + 1);
-      continue;
-    }
-
-    map.set(longArr[i], 1);
+    map.set(KEY, (map.get(KEY) || 0) + 1);
   }
-
-  console.log(map);
 
   for (let j = 0; j < shortArr.length; j++) {
     let KEY = shortArr[j];
     let KEY_TIME = map.get(KEY);
 
-    if (KEY_TIME > 0) { // 当次数为0时，不再互相匹配
+    if (KEY_TIME > 0) {
       results.push(KEY);
       map.set(KEY, KEY_TIME - 1);
     }
@@ -99,7 +90,8 @@ let intersect = function(nums1, nums2) {
   return results;
 };
 
-let input = [[3, 1, 2], [1, 1]];
+// let input = [[3, 1, 2], [1, 1]];
+let input = [[4,9,5],[9,4,9,8,4]];
 let result = intersect(...input);
 
 console.log(result);

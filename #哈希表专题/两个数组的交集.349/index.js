@@ -41,7 +41,7 @@ let intersection2 = function(nums1, nums2) {
  * @param {number[]} nums2
  * @return {number[]}
  */
- let intersection = function(nums1, nums2) {
+let intersection = function(nums1, nums2) {
   nums1.sort((a, b) => {return a - b})
   nums2.sort((a, b) => {return a - b})
 
