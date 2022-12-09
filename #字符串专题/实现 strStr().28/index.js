@@ -28,25 +28,22 @@
  * @return {number}
  */
 let strStr2 = function(haystack, needle) {
-  if (needle.length === 0) return 0;
+  let i = 0;
+  while (i <= haystack.length) {
 
-  let standard = 0;
-  while (standard < haystack.length) {
-    let match = true;
-
-    let i = 0;
-    while (i < needle.length) {
-      if (haystack[standard + i] !== needle[i]) {
-        match = false;
+    let j = 0;
+    while (j < needle.length) {
+      if (haystack[i + j] !== needle[j]) {
         break;
-      }
-      i++;
+      };
+
+      j++;
     }
-    if (match) {
-      return standard;
+    if (j === needle.length) {
+      return i;
     }
 
-    standard++;
+    i++;
   }
 
   return -1;
@@ -111,11 +108,10 @@ let strStr = function(haystack, needle) {
   return -1;
 }
 
-
 // let input = ['hello', 'll'];
 // let input = ['aaaaa', 'bba'];
-// let input = ['sdfjeiowfj', 'owfj'];
-let input = ['aabaabaafa', 'aabaaf']
-let result = strStr(...input);
+let input = ['sdfjeiowfj', 'owfj'];
+// let input = ['aabaabaafa', 'aabaaf']
+let result = strStr3(...input);
 
 console.log(result);
