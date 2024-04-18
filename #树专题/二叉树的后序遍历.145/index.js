@@ -35,7 +35,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
- var postorderTraversal2 = function(root) {
+let postOrderTraversal2 = function(root) {
   let ans = [];
 
   let postOrderTraverseNode = (node) => {
@@ -57,7 +57,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
- let postorderTraversal = function(root) {
+let postOrderTraversal = function(root) {
   let ans = [];
   let stack = [];
   let prev = null;

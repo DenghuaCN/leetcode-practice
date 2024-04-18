@@ -34,7 +34,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-let inorderTraversal2 = function(root) {
+let inOrderTraversal2 = function(root) {
   let ans = [];
 
   let dfs = (root) => {
@@ -58,7 +58,7 @@ let inorderTraversal2 = function(root) {
  * @param {TreeNode} root
  * @return {number[]}
  */
- let inorderTraversal = function(root) {
+let inOrderTraversal = function(root) {
   let ans = [];
   let stack = [];
 
